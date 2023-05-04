@@ -14,9 +14,9 @@ License: Public Domain
 -- A callback is provided for those interested in checker changes.
 -- @usage
 -- local rc = LibStub("LibRangeCheck-2.0")
--- 
+--
 -- rc.RegisterCallback(self, rc.CHECKERS_CHANGED, function() print("need to refresh my stored checkers") end)
--- 
+--
 -- local minRange, maxRange = rc:GetRange('target')
 -- if not minRange then
 --     print("cannot get range estimate for target")
@@ -25,7 +25,7 @@ License: Public Domain
 -- else
 --     print("target is between " .. minRange .. " and " .. maxRange .. " yards")
 -- end
--- 
+--
 -- local meleeChecker = rc:GetFriendMaxChecker(rc.MeleeRange) -- 5 yds
 -- for i = 1, 4 do
 --     -- TODO: check if unit is valid, etc
@@ -78,7 +78,7 @@ local MeleeRange = 5
 
 -- list of friendly spells that have different ranges
 local FriendSpells = {}
--- list of harmful spells that have different ranges 
+-- list of harmful spells that have different ranges
 local HarmSpells = {}
 
 FriendSpells["DRUID"] = {
@@ -130,7 +130,7 @@ HarmSpells["PALADIN"] = {
     20473, -- ["Holy Shock"], -- 20
     20271, -- ["Judgement"], -- 10
     35395, -- ["Crusader Strike"], -- 5
-} 
+}
 
 FriendSpells["PRIEST"] = {
     2050, -- ["Lesser Heal"], -- 40
@@ -185,16 +185,16 @@ HarmSpells["WARLOCK"] = {
     17877, -- ["Shadowburn"], -- 20 (Destructive Reach: 22, 24)
 }
 
-FriendSpells["DEATHKNIGHT"] = {
-}
-HarmSpells["DEATHKNIGHT"] = {
-    47541, -- ["Death Coil"], -- 30
-    47476, -- ["Strangulate"], -- 30 (Glyph of Strangulate: +20)
-    45477, -- ["Icy Touch"], -- 20 (Icy Reach: 25, 30)
-    56222, -- ["Dark Command"], -- 20
-    50842, -- ["Pestilence"], -- 5
-    45902, -- ["Blood Strike"], -- 5, but requires weapon, use Pestilence if possible, so keep it after Pestilence in this list
-}
+-- FriendSpells["DEATHKNIGHT"] = {
+-- }
+-- HarmSpells["DEATHKNIGHT"] = {
+--     47541, -- ["Death Coil"], -- 30
+--     47476, -- ["Strangulate"], -- 30 (Glyph of Strangulate: +20)
+--     45477, -- ["Icy Touch"], -- 20 (Icy Reach: 25, 30)
+--     56222, -- ["Dark Command"], -- 20
+--     50842, -- ["Pestilence"], -- 5
+--     45902, -- ["Blood Strike"], -- 5, but requires weapon, use Pestilence if possible, so keep it after Pestilence in this list
+-- }
 
 -- Items [Special thanks to Maldivia for the nice list]
 
@@ -484,7 +484,7 @@ local function createCheckerList(spellList, itemList, interactList)
             end
         end
     end
-    
+
     if itemList then
         for range, items in pairs(itemList) do
             for i = 1, #items do
@@ -496,7 +496,7 @@ local function createCheckerList(spellList, itemList, interactList)
             end
         end
     end
-    
+
     if interactList and not next(res) then
         for index, range in pairs(interactList) do
             addChecker(res, range, nil,  checkers_Interact[index])
@@ -633,7 +633,7 @@ lib.failedItemRequests = {}
 
 -- << Public API
 
- 
+
 
 --- The callback name that is fired when checkers are changed.
 -- @field
@@ -927,7 +927,7 @@ function lib:processItemRequests(itemRequests)
                     itemRequests[range] = nil
                     break
                 end
-                tremove(items, i)   
+                tremove(items, i)
             elseif not itemRequestTimeoutAt then
                 requestItemInfo(item)
                 itemRequestTimeoutAt = GetTime() + ItemRequestTimeout
@@ -973,9 +973,9 @@ function lib:scheduleInit()
     self.frame:Show()
 end
 
- 
 
--- << load-time initialization 
+
+-- << load-time initialization
 
 function lib:activate()
     if not self.frame then

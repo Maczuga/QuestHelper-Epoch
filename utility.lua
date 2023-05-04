@@ -11,7 +11,7 @@ local default_colour_theme =
    menu_text={1, 1, 1},
    menu_text_highlight={0, 0, 0},
    menu={0, 0, 0},
-   menu_highlight={0.3, 0.5, 0.7}, 
+   menu_highlight={0.3, 0.5, 0.7},
    menu_title_text={1, 1, 1},
    menu_title_text_highlight={1, 1, 1},
    menu_title={0, 0.2, 0.6},
@@ -35,7 +35,7 @@ function QuestHelper:GetColourTheme()
   if date("%b%d") == "Dec25" then
     return xmas_colour_theme
   end
-  
+
   return default_colour_theme
 end
 
@@ -56,57 +56,57 @@ function QuestHelper:CreateUID(length)
   local characters = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
   for k = 1, (math.floor(GetTime() % 1000) + 5) do math.random() end   -- it's sort of like seeding. only worse.
   local base = GetUnitName("player")..":"..GetRealmName()..":"..math.random(0, 2147483647)..":"..GetTime()..":"..time()
-  
+
   for c = 1,(length or 32) do
     local pos = 1+math.floor(self:HashString(result..base..math.random(0, 2147483647))%string.len(characters))
     result = result .. string.sub(characters, pos, pos)
   end
-  
+
   return result
 end
 
 function QuestHelper:ZoneSanity()
   local sane = true
-  
+
   for c in pairs(self.Astrolabe:GetMapVirtualContinents()) do
     local pz = self.Astrolabe:GetMapVirtualZones(c)
     pz[0] = true
     for z in pairs(pz) do
       local name
-      
+
       if z == 0 then
         name = self.Astrolabe:GetMapVirtualContinents()[c]
       else
         name = self.Astrolabe:GetMapVirtualZones(c)[z]
       end
-      
+
       --[[ assert(name) ]]
-      
+
       if QuestHelper_Zones[c][z] ~= name then
         sane = false
         QuestHelper:TextOut(string.format("'%s' has the wrong ID (should be %d,%d).", name, c, z))
       end
-      
+
       local pair = QuestHelper_ZoneLookup[name]
-      
+
       if not pair or c ~= pair[1] or z ~= pair[2] then
         sane = false
         QuestHelper:TextOut("ZoneLookup['"..name.."'] maps to wrong pair.")
       end
-      
+
       local index = QuestHelper_IndexLookup[name]
       if QuestHelper_ZoneLookup[index] ~= pair then
         sane = false
         QuestHelper:TextOut("ZoneLookup['"..name.."'] isn't equal to ZoneLookup["..index.."]")
       end
-      
+
       if not index or QuestHelper_NameLookup[index] ~= name then
         sane = false
         QuestHelper:TextOut("NameLookup["..(index or "???").."'] doesn't equal '"..name.."'")
       end
     end
   end
-  
+
   return sane
 end
 
@@ -135,11 +135,11 @@ end
 
 function QuestHelper:GetUnitID(unit)
   local id = UnitGUID(unit)
-  
+
   if id then
     return (string.sub(id, 5, 5) == "3") and tonumber(string.sub(id, 6, 12), 16) or nil
   end
-  
+
   return nil
 end
 
@@ -154,7 +154,7 @@ end
 
 function QuestHelper:CountItem(item_id)
   local count = 0
-  
+
   for bag = 0,NUM_BAG_SLOTS do
     for slot = 1,GetContainerNumSlots(bag) do
       local link = GetContainerItemLink(bag, slot)
@@ -163,14 +163,14 @@ function QuestHelper:CountItem(item_id)
       end
     end
   end
-  
+
   return count
 end
 
 function QuestHelper:ItemCooldown(item_id)
   local now = GetTime()
   local cooldown = nil
-  
+
   for bag = 0,NUM_BAG_SLOTS do
     for slot = 1,GetContainerNumSlots(bag) do
       local link = GetContainerItemLink(bag, slot)
@@ -188,7 +188,7 @@ function QuestHelper:ItemCooldown(item_id)
       end
     end
   end
-  
+
   return cooldown
 end
 
@@ -197,7 +197,7 @@ function QuestHelper:TimeString(seconds)
     --self:AppendNotificationError("2008-10-8 nil-timestring")   -- we're just going to do away with this entirely, the fact is that a lot of this is going to be ripped to shreds soon anyway
     return "(unknown)"
   end
-  
+
   local seconds = math.ceil(seconds)
   local h, m, s = math.floor(seconds/(60*60)), math.floor(seconds/60)%60, seconds%60
   if h > 0 then
@@ -276,11 +276,11 @@ function QuestHelper:AppendPosition(list, index, x, y, w, min_dist)
     --self:AppendNotificationError("2008-10-6 nil-position", string.format("nilposition, %s %s %s %s vs %s %s", tostring(nc), tostring(nz), tostring(nx), tostring(ny), tostring(x), tostring(y)))  -- We're just not worrying about this too much anymore. Slash and burn.
     return list -- This isn't a real position.
   end
-  
+
   local closest, distance = nil, 0
   w = w or 1
   min_dist = min_dist or 200
-  
+
   for i, p in ipairs(list) do
     if index == p[1] then
       local d = self:Distance(index, x, y, p[1], p[2], p[3])
@@ -289,7 +289,7 @@ function QuestHelper:AppendPosition(list, index, x, y, w, min_dist)
       end
     end
   end
-  
+
   if closest and distance < min_dist then
     local p = list[closest]
     p[2] = (p[2]*p[4]+x*w)/(p[4]+w)
@@ -298,7 +298,7 @@ function QuestHelper:AppendPosition(list, index, x, y, w, min_dist)
   else
     table.insert(list, {index, x, y, w})
   end
-  
+
   return list
 end
 
@@ -380,11 +380,13 @@ end
 
 function QuestHelper:IsWrath()
   --return GetBuildInfo():sub(1,1) == '3' or GetBuildInfo() == "0.0.2" -- come on
-  return true -- this had better be true :D
+  return false;
+  -- return true -- this had better be true :D
 end
 
 function QuestHelper:IsWrath32()
-  return tonumber(GetBuildInfo():sub(3,3)) >= 2
+  return false;
+  -- return tonumber(GetBuildInfo():sub(3,3)) >= 2
 end
 
 function QuestHelper:AppendNotificationError(type, data)
@@ -434,6 +436,6 @@ function QH_fixedmessage(text)
     whileDead = 1,
     hideOnEscape = 1
   }
-  
+
   StaticPopup_Show(msgtext)
 end
