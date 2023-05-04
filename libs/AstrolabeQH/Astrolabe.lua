@@ -1632,8 +1632,8 @@ if true then
 	WorldMapSize[1].xOffset = -8590.409362625034;
 	WorldMapSize[1].yOffset = 5628.694276155668;
 
--- 	WorldMapSize[2].xOffset = 18542.31268111796;
--- 	WorldMapSize[2].yOffset = 3585.574682467752;
+	WorldMapSize[2].xOffset = 18542.31268111796;
+	WorldMapSize[2].yOffset = 3585.574682467752;
 
 
 -- 	WorldMapSize[4] = {

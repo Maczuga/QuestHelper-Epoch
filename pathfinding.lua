@@ -51,8 +51,8 @@ local static_alliance_routes =
    {{10, 0.718, 0.565}, {51, 0.047, 0.636}, 210}, -- Theramore Isle <--> Menethil Harmor
    {{36, 0.228, 0.560}, {16, 0.323, 0.441}, 210}, -- Stormwind City <--> Auberdine
 
-   {{36, 0.183, 0.255}, {65, 0.597, 0.694}, 210}, -- Stormwind City <--> Valiance Keep
-   {{51, 0.047, 0.571}, {70, 0.612, 0.626}, 210}, -- Menethil <--> Daggercap Bay
+  --  {{36, 0.183, 0.255}, {65, 0.597, 0.694}, 210}, -- Stormwind City <--> Valiance Keep
+  --  {{51, 0.047, 0.571}, {70, 0.612, 0.626}, 210}, -- Menethil <--> Daggercap Bay
 
   --  {{60, 0.558, 0.366}, STORMWIND_CITY_PORTAL, 60, true, nil, "STORMWIND_CITY_PORTAL"}, -- Shattrath City --> Stormwind City
   --  {{60, 0.563, 0.37}, IRONFORGE_PORTAL, 60, true, nil, "IRONFORGE_PORTAL"}, -- Shattrath City --> Ironforge
